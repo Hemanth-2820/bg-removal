@@ -66,4 +66,26 @@ const clerkWebhooks = async (req,res) => {
     }
 }
 
-export {clerkWebhooks};
+
+
+// api controller function to get user aviable credits data 
+
+
+const UserCredits = async (req,res) => {
+    try {
+        const {clerkId} = req.body;
+        const userData = await userModel.findOne({clerkId})
+        console.log("fetcher user data:", userData)
+        // if(!user){
+        //     return res.json({success:false,message:"User not found"})
+        // }
+        res.json({success:true,credits:userData.credits})
+
+    } catch (error) {
+        console.log(error.message);
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
+export {clerkWebhooks,UserCredits}
